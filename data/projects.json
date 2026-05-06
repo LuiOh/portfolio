@@ -1,0 +1,138 @@
+[
+  {
+    "id": "personal-1",
+    "title": "독서 기록 PWA",
+    "subtitle": "오프라인에서도 끊기지 않는 읽기 흐름",
+    "type": "personal",
+    "period": "2024.08 - 2024.12",
+    "description": "오프라인에서도 메모를 남길 수 있는 개인용 독서 기록 앱입니다. IndexedDB 캐싱과 백그라운드 동기화로 어떤 환경에서도 읽기 흐름이 끊기지 않도록 만들었습니다.",
+    "overview": "출퇴근길 지하철처럼 네트워크가 불안한 환경에서도 책에서 받은 영감을 빠르게 메모하고 싶다는 개인적 필요에서 출발한 프로젝트입니다. Service Worker와 IndexedDB를 활용해 완전한 오프라인 우선 구조를 만들고, 네트워크가 회복되면 자동으로 서버와 동기화하는 방식으로 설계했습니다.",
+    "highlights": [
+      "Workbox 기반 Service Worker로 정적 자산과 API 응답을 분리 캐싱",
+      "IndexedDB에 메모 초안을 저장하고 백그라운드 동기화 큐로 안정적 업로드",
+      "Lighthouse PWA 점수 100점, LCP 1.4s 달성",
+      "다크 모드와 한국어 타이포그래피에 최적화된 읽기 화면 설계"
+    ],
+    "content": [
+      {
+        "heading": "왜 만들었나",
+        "body": "기존 메모 앱은 네트워크가 끊기면 입력은 되지만 동기화가 깨지는 경우가 잦았습니다. 사용자가 작성 중인 글의 손실을 0에 수렴시키는 것을 1번 목표로 두었습니다."
+      },
+      {
+        "heading": "핵심 의사결정",
+        "body": "동기화 충돌은 마지막 편집 시각을 기준으로 클라이언트 우선 정책을 적용했고, 충돌 발생 시 사용자에게 머지 UI를 제공하는 대신 두 버전 모두 보관하도록 설계했습니다."
+      }
+    ],
+    "tech": ["Next.js", "TypeScript", "IndexedDB", "Workbox", "Tailwind CSS"],
+    "links": {
+      "github": "https://github.com/yourname/reading-pwa",
+      "demo": "https://reading-pwa.example.com"
+    }
+  },
+  {
+    "id": "personal-2",
+    "title": "한 줄 회고 봇",
+    "subtitle": "매일 저녁 8시, 슬랙으로 보내는 한 문장",
+    "type": "personal",
+    "period": "2024.05 - 2024.07",
+    "description": "매일 저녁 8시에 슬랙으로 한 줄 회고 질문을 보내고, 답변을 모아 주간 리포트를 만들어 주는 사이드 프로젝트입니다.",
+    "overview": "팀 단위 회고 도구는 무거운 데 비해 개인 회고 습관을 가볍게 이어주는 도구는 부족하다고 느꼈습니다. 슬랙 DM 한 통으로 회고가 시작되고, 일주일 치를 모아 주간 리포트로 받아볼 수 있는 작은 봇을 만들었습니다.",
+    "highlights": [
+      "Vercel Cron으로 매일 정시 스케줄링, 시간대 보정 로직 포함",
+      "Slack Block Kit으로 답변 입력을 인라인으로 받아 1탭 회고 구현",
+      "PostgreSQL 풀텍스트 검색으로 과거 회고를 키워드로 다시 보기"
+    ],
+    "content": [
+      {
+        "heading": "운영 후기",
+        "body": "약 4주간 혼자 사용해 보고 친한 동료 5명에게 베타 오픈했습니다. '하루를 닫는 의식'이 생겼다는 피드백이 가장 인상적이었습니다."
+      }
+    ],
+    "tech": ["Node.js", "Slack API", "PostgreSQL", "Vercel Cron"],
+    "links": {
+      "github": "https://github.com/yourname/retro-bot"
+    }
+  },
+  {
+    "id": "personal-3",
+    "title": "포트폴리오 사이트",
+    "subtitle": "JSON으로 갈아끼우는 정적 포트폴리오 템플릿",
+    "type": "personal",
+    "period": "2025.04 - 2025.05",
+    "description": "JSON 기반으로 콘텐츠를 외부화하여 누구나 손쉽게 자신의 포트폴리오로 변환할 수 있는 정적 사이트 템플릿입니다. 다크/라이트 테마와 반응형 레이아웃을 지원합니다.",
+    "overview": "지금 보고 계신 이 사이트입니다. 콘텐츠와 디자인을 분리해, 한국어 사용자가 자기소개·기술·경력·프로젝트를 JSON 한 묶음으로 갈아끼우면 자신의 포트폴리오가 되도록 설계했습니다. 풀스크린 은하수 배경과 우주 테마 챗봇으로 첫인상을 차별화했습니다.",
+    "highlights": [
+      "OGL 기반 WebGL 파티클 배경으로 풀스크린 은하수 연출",
+      "framer-motion으로 섹션별 entrance · stagger · hover 애니메이션 일관 적용",
+      "OpenAI gpt-4.1-nano로 사이트 콘텐츠를 컨텍스트로 답하는 우측 하단 챗봇",
+      "JSON 1세트만 갈아끼우면 다른 사람 포트폴리오가 되도록 콘텐츠 분리"
+    ],
+    "tech": ["Next.js 15", "TypeScript", "Tailwind CSS", "next-themes", "framer-motion", "OGL"],
+    "links": {
+      "github": "https://github.com/yourname/portfolio"
+    }
+  },
+  {
+    "id": "work-1",
+    "title": "결제 정산 시스템 재설계",
+    "subtitle": "월 1,200억 거래액의 멱등성 보장 파이프라인",
+    "type": "work",
+    "period": "2024.01 - 2024.10",
+    "description": "월 거래액 1,200억 원 규모의 정산 파이프라인을 멱등성 보장 구조로 다시 설계했습니다. 재처리 비용을 획기적으로 줄이고, 운영팀 야근을 사실상 없앤 프로젝트입니다.",
+    "overview": "기존 정산 시스템은 부분 실패 시 전체 배치 재실행이 필요해 새벽 운영 부담이 컸습니다. 트랜잭션 단위 멱등 키를 도입하고, Kafka 기반 이벤트 소싱으로 재처리 가능한 단위를 잘게 쪼개 운영 안정성을 확보했습니다.",
+    "highlights": [
+      "거래 단위 멱등 키 도입으로 재처리 비용 78% 감소",
+      "Kafka Streams 기반 이벤트 소싱 + 정산 결과 머티리얼라이즈드 뷰",
+      "Datadog 메트릭/알림 정비로 운영팀 새벽 호출 월 12회 → 0~1회",
+      "온보딩 문서를 Confluence에 정리해 신규 합류자 적응 기간 단축"
+    ],
+    "content": [
+      {
+        "heading": "내 역할",
+        "body": "백엔드 4명·인프라 1명 팀의 테크 리드로 아키텍처 설계, Kafka 토픽 모델링, 운영 전환 플랜 전반을 책임졌습니다."
+      },
+      {
+        "heading": "회고",
+        "body": "마이그레이션의 핵심은 코드가 아니라 '구 시스템과 신 시스템을 동시에 굴리며 데이터 일치를 검증하는 기간'을 충분히 확보하는 일이라는 걸 다시 배웠습니다."
+      }
+    ],
+    "tech": ["Spring Boot", "Kafka", "PostgreSQL", "Kubernetes", "Datadog"],
+    "links": {}
+  },
+  {
+    "id": "work-2",
+    "title": "고객사 대시보드 v2",
+    "subtitle": "실시간 사용 지표를 위젯 단위로 커스터마이징",
+    "type": "work",
+    "period": "2022.06 - 2023.01",
+    "description": "B2B 고객이 자신의 사용 지표를 실시간으로 확인할 수 있는 대시보드를 처음부터 다시 만들었습니다. 위젯 단위 커스터마이징과 권한별 뷰를 지원합니다.",
+    "overview": "v1 대시보드는 페이지 단위로만 구성되어 있어 고객사마다 보고 싶은 지표가 달라도 동일한 화면을 봐야 했습니다. v2에서는 위젯 단위로 분해하고, 드래그 앤 드롭 레이아웃과 권한별 뷰를 지원해 고객사가 자기 회사에 맞는 대시보드를 직접 구성할 수 있도록 했습니다.",
+    "highlights": [
+      "TanStack Query 기반 실시간 데이터 폴링·캐싱 전략",
+      "Recharts 위젯 12종 + 드래그 앤 드롭 레이아웃 저장",
+      "Role 기반 위젯 노출 제어로 단일 화면에서 권한별 뷰 분기",
+      "p95 대시보드 로딩 4.8s → 1.6s로 단축"
+    ],
+    "tech": ["React", "TanStack Query", "Recharts", "NestJS", "Redis"],
+    "links": {
+      "demo": "https://dashboard.example.com"
+    }
+  },
+  {
+    "id": "work-3",
+    "title": "어드민 디자인 시스템",
+    "subtitle": "사내 6개 제품이 공유하는 한 세트의 어드민 UI",
+    "type": "work",
+    "period": "2021.09 - 2022.05",
+    "description": "사내 6개 제품에서 공유하는 어드민 디자인 시스템을 구축했습니다. 컴포넌트, 토큰, 가이드라인까지 한 패키지로 묶어 신규 화면 개발 속도를 두 배로 끌어올렸습니다.",
+    "overview": "사내 어드민 화면이 제품마다 따로 만들어지고 있어 같은 버튼이 8가지 색으로 존재하는 상황이었습니다. Figma 토큰부터 React 컴포넌트, Storybook 가이드까지 한 묶음으로 정비해 신규 화면 개발 속도와 일관성을 동시에 잡았습니다.",
+    "highlights": [
+      "Figma Tokens → CSS 변수 자동 변환 파이프라인 구축",
+      "Stitches 기반 헤드리스 컴포넌트 32종, 접근성 검수 완료",
+      "Storybook + 사용 가이드 문서화로 신규 합류자 적응 기간 단축",
+      "신규 화면 개발 속도 약 2배, 디자인 QA 리젝션 60% 감소"
+    ],
+    "tech": ["React", "Storybook", "Stitches", "Figma Tokens"],
+    "links": {}
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "name": "정보처리기사",
+    "issuer": "한국산업인력공단",
+    "date": "2020.05",
+    "credentialUrl": "https://www.q-net.or.kr"
+  },
+  {
+    "name": "SQLD (SQL 개발자)",
+    "issuer": "한국데이터산업진흥원",
+    "date": "2021.03"
+  },
+  {
+    "name": "AWS Certified Solutions Architect – Associate",
+    "issuer": "Amazon Web Services",
+    "date": "2022.11",
+    "credentialUrl": "https://aws.amazon.com/verification"
+  },
+  {
+    "name": "AZ-900: Microsoft Azure Fundamentals",
+    "issuer": "Microsoft",
+    "date": "2023.07"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "title": "홍길동 | 포트폴리오",
+  "description": "사용자 경험을 중요하게 생각하는 풀스택 개발자 홍길동의 포트폴리오 사이트입니다.",
+  "copyright": "© 2025 홍길동. 모든 권리 보유.",
+  "nav": [
+    { "label": "소개", "href": "/#about" },
+    { "label": "기술", "href": "/#skills" },
+    { "label": "자격증", "href": "/#certifications" },
+    { "label": "경력", "href": "/#experience" },
+    { "label": "프로젝트", "href": "/#projects" }
+  ]
+}

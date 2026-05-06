@@ -1,0 +1,18 @@
+[
+  {
+    "category": "프론트엔드",
+    "items": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js", "Zustand", "TanStack Query"]
+  },
+  {
+    "category": "백엔드",
+    "items": ["Node.js", "NestJS", "Spring Boot", "Python", "FastAPI", "PostgreSQL", "MongoDB", "Redis"]
+  },
+  {
+    "category": "인프라 / DevOps",
+    "items": ["Docker", "Kubernetes", "AWS", "GitHub Actions", "Terraform", "Datadog", "Sentry"]
+  },
+  {
+    "category": "협업 / 도구",
+    "items": ["Git", "Jira", "Notion", "Figma", "Slack", "Storybook"]
+  }
+]

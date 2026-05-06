@@ -1,0 +1,15 @@
+{
+  "name": "홍길동",
+  "headline": "사용자 경험을 중요하게 생각하는 풀스택 개발자",
+  "tagline": "복잡한 문제를 단순하게, 단순한 결과를 견고하게 만드는 일을 좋아합니다. 6년 차 개발자로서 레거시 현대화부터 신규 서비스 설계까지 폭넓게 다뤄왔습니다.",
+  "email": "your.email@example.com",
+  "resumeUrl": "/resume.pdf",
+  "ctaPrimary": { "label": "더 알아보기", "href": "#about" },
+  "ctaSecondary": { "label": "이력서 다운로드", "href": "/resume.pdf" },
+  "social": [
+    { "label": "GitHub", "href": "https://github.com/yourname", "icon": "github" },
+    { "label": "LinkedIn", "href": "https://linkedin.com/in/yourname", "icon": "linkedin" },
+    { "label": "이메일", "href": "mailto:your.email@example.com", "icon": "mail" },
+    { "label": "블로그", "href": "https://yourblog.example.com", "icon": "globe" }
+  ]
+}
