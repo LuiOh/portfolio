@@ -1,138 +1,354 @@
 [
   {
-    "id": "personal-1",
-    "title": "독서 기록 PWA",
-    "subtitle": "오프라인에서도 끊기지 않는 읽기 흐름",
-    "type": "personal",
-    "period": "2024.08 - 2024.12",
-    "description": "오프라인에서도 메모를 남길 수 있는 개인용 독서 기록 앱입니다. IndexedDB 캐싱과 백그라운드 동기화로 어떤 환경에서도 읽기 흐름이 끊기지 않도록 만들었습니다.",
-    "overview": "출퇴근길 지하철처럼 네트워크가 불안한 환경에서도 책에서 받은 영감을 빠르게 메모하고 싶다는 개인적 필요에서 출발한 프로젝트입니다. Service Worker와 IndexedDB를 활용해 완전한 오프라인 우선 구조를 만들고, 네트워크가 회복되면 자동으로 서버와 동기화하는 방식으로 설계했습니다.",
-    "highlights": [
-      "Workbox 기반 Service Worker로 정적 자산과 API 응답을 분리 캐싱",
-      "IndexedDB에 메모 초안을 저장하고 백그라운드 동기화 큐로 안정적 업로드",
-      "Lighthouse PWA 점수 100점, LCP 1.4s 달성",
-      "다크 모드와 한국어 타이포그래피에 최적화된 읽기 화면 설계"
-    ],
-    "content": [
-      {
-        "heading": "왜 만들었나",
-        "body": "기존 메모 앱은 네트워크가 끊기면 입력은 되지만 동기화가 깨지는 경우가 잦았습니다. 사용자가 작성 중인 글의 손실을 0에 수렴시키는 것을 1번 목표로 두었습니다."
-      },
-      {
-        "heading": "핵심 의사결정",
-        "body": "동기화 충돌은 마지막 편집 시각을 기준으로 클라이언트 우선 정책을 적용했고, 충돌 발생 시 사용자에게 머지 UI를 제공하는 대신 두 버전 모두 보관하도록 설계했습니다."
-      }
-    ],
-    "tech": ["Next.js", "TypeScript", "IndexedDB", "Workbox", "Tailwind CSS"],
-    "links": {
-      "github": "https://github.com/yourname/reading-pwa",
-      "demo": "https://reading-pwa.example.com"
-    }
-  },
-  {
-    "id": "personal-2",
-    "title": "한 줄 회고 봇",
-    "subtitle": "매일 저녁 8시, 슬랙으로 보내는 한 문장",
-    "type": "personal",
-    "period": "2024.05 - 2024.07",
-    "description": "매일 저녁 8시에 슬랙으로 한 줄 회고 질문을 보내고, 답변을 모아 주간 리포트를 만들어 주는 사이드 프로젝트입니다.",
-    "overview": "팀 단위 회고 도구는 무거운 데 비해 개인 회고 습관을 가볍게 이어주는 도구는 부족하다고 느꼈습니다. 슬랙 DM 한 통으로 회고가 시작되고, 일주일 치를 모아 주간 리포트로 받아볼 수 있는 작은 봇을 만들었습니다.",
-    "highlights": [
-      "Vercel Cron으로 매일 정시 스케줄링, 시간대 보정 로직 포함",
-      "Slack Block Kit으로 답변 입력을 인라인으로 받아 1탭 회고 구현",
-      "PostgreSQL 풀텍스트 검색으로 과거 회고를 키워드로 다시 보기"
-    ],
-    "content": [
-      {
-        "heading": "운영 후기",
-        "body": "약 4주간 혼자 사용해 보고 친한 동료 5명에게 베타 오픈했습니다. '하루를 닫는 의식'이 생겼다는 피드백이 가장 인상적이었습니다."
-      }
-    ],
-    "tech": ["Node.js", "Slack API", "PostgreSQL", "Vercel Cron"],
-    "links": {
-      "github": "https://github.com/yourname/retro-bot"
-    }
-  },
-  {
-    "id": "personal-3",
-    "title": "포트폴리오 사이트",
-    "subtitle": "JSON으로 갈아끼우는 정적 포트폴리오 템플릿",
-    "type": "personal",
-    "period": "2025.04 - 2025.05",
-    "description": "JSON 기반으로 콘텐츠를 외부화하여 누구나 손쉽게 자신의 포트폴리오로 변환할 수 있는 정적 사이트 템플릿입니다. 다크/라이트 테마와 반응형 레이아웃을 지원합니다.",
-    "overview": "지금 보고 계신 이 사이트입니다. 콘텐츠와 디자인을 분리해, 한국어 사용자가 자기소개·기술·경력·프로젝트를 JSON 한 묶음으로 갈아끼우면 자신의 포트폴리오가 되도록 설계했습니다. 풀스크린 은하수 배경과 우주 테마 챗봇으로 첫인상을 차별화했습니다.",
-    "highlights": [
-      "OGL 기반 WebGL 파티클 배경으로 풀스크린 은하수 연출",
-      "framer-motion으로 섹션별 entrance · stagger · hover 애니메이션 일관 적용",
-      "OpenAI gpt-4.1-nano로 사이트 콘텐츠를 컨텍스트로 답하는 우측 하단 챗봇",
-      "JSON 1세트만 갈아끼우면 다른 사람 포트폴리오가 되도록 콘텐츠 분리"
-    ],
-    "tech": ["Next.js 15", "TypeScript", "Tailwind CSS", "next-themes", "framer-motion", "OGL"],
-    "links": {
-      "github": "https://github.com/yourname/portfolio"
-    }
-  },
-  {
-    "id": "work-1",
-    "title": "결제 정산 시스템 재설계",
-    "subtitle": "월 1,200억 거래액의 멱등성 보장 파이프라인",
+    "id": "aimh",
+    "title": "AI Marketing Hub (AIMH)",
+    "subtitle": "외주 없이, 마케터 혼자. 콘텐츠·광고·성과를 한 플랫폼에서",
     "type": "work",
-    "period": "2024.01 - 2024.10",
-    "description": "월 거래액 1,200억 원 규모의 정산 파이프라인을 멱등성 보장 구조로 다시 설계했습니다. 재처리 비용을 획기적으로 줄이고, 운영팀 야근을 사실상 없앤 프로젝트입니다.",
-    "overview": "기존 정산 시스템은 부분 실패 시 전체 배치 재실행이 필요해 새벽 운영 부담이 컸습니다. 트랜잭션 단위 멱등 키를 도입하고, Kafka 기반 이벤트 소싱으로 재처리 가능한 단위를 잘게 쪼개 운영 안정성을 확보했습니다.",
+    "period": "2025.12 - 2026.05",
+    "description": "콘텐츠·광고·성과까지 마케팅 풀사이클을 한 곳에서 끝내는 All-in-One AI 플랫폼을 1인으로 구축했습니다. 그룹사 1,500명 대상 전사 발표로 마케팅 업무 재정의 대표 사례로 채택됐습니다.",
+    "overview": "마케팅팀은 콘텐츠 제작을 외주와 여러 외부 도구에 의존해 출고 주기가 길고 일관성이 떨어지는 구조적 문제를 안고 있었습니다. 초기 'AI Contents Factory'로 개념을 검증한 뒤 'AI Marketing Hub'로 개편·확장하며, 외주·개발자·외부 도구 의존을 제거하고 마케터가 단독으로 콘텐츠를 완결하도록 재설계했습니다. 기획부터 AWS 인프라·배포까지 모두 1인으로 수행했습니다.",
     "highlights": [
-      "거래 단위 멱등 키 도입으로 재처리 비용 78% 감소",
-      "Kafka Streams 기반 이벤트 소싱 + 정산 결과 머티리얼라이즈드 뷰",
-      "Datadog 메트릭/알림 정비로 운영팀 새벽 호출 월 12회 → 0~1회",
-      "온보딩 문서를 Confluence에 정리해 신규 합류자 적응 기간 단축"
+      "레퍼런스 수집→콘텐츠 기획→영상 편집→마켓 퍼블리싱까지 외부 도구·개발자 의뢰로 처리하던 전 과정을 플랫폼 안에서 마케터 단독 처리하도록 통합(외부 의존 0)",
+      "빈 위자드에 반복 수정하던 방식을 AI와 대화하며 톤·메시지·구조를 정교화하는 방식으로 전환(채팅 한 줄로 시나리오 생성)",
+      "이미지→영상 자동 합성과 2분+ 긴 영상에서 9:16 하이라이트 자동 추출 + 내장 영상 에디터로 외부 영상 편집 도구 의존 제거",
+      "다중 생성형 AI(Gemini·Veo·Whisper·TTS)를 단일 워크플로로 오케스트레이션, SSE 스트리밍+keepalive로 긴 생성 작업 안정화(CloudFront 60초 타임아웃 우회)",
+      "9:16 리프레임·자막 번인을 FFmpeg 자체 파이프라인으로 구현해 외부 API 비용 없이 운영",
+      "콘텐츠(Q2 완료)→광고(Q3)→성과(Q4) 확장 로드맵 수립, 그룹사 1,500명 대상 전사 발표"
     ],
     "content": [
       {
-        "heading": "내 역할",
-        "body": "백엔드 4명·인프라 1명 팀의 테크 리드로 아키텍처 설계, Kafka 토픽 모델링, 운영 전환 플랜 전반을 책임졌습니다."
-      },
-      {
-        "heading": "회고",
-        "body": "마이그레이션의 핵심은 코드가 아니라 '구 시스템과 신 시스템을 동시에 굴리며 데이터 일치를 검증하는 기간'을 충분히 확보하는 일이라는 걸 다시 배웠습니다."
+        "heading": "AI 활용 개발",
+        "body": "생성형 AI 페어 프로그래밍을 개발 프로세스에 적극 활용해, 1인 체제로 전신 검증부터 정식 개편·인프라·배포까지의 리드타임을 크게 단축했습니다."
       }
     ],
-    "tech": ["Spring Boot", "Kafka", "PostgreSQL", "Kubernetes", "Datadog"],
+    "tech": ["Spring Boot 3", "React 19", "생성형 AI (Gemini·Veo·Whisper·TTS)", "FFmpeg / JavaCV", "Google API", "AWS (EB·S3·CloudFront·RDS)"],
     "links": {}
   },
   {
-    "id": "work-2",
-    "title": "고객사 대시보드 v2",
-    "subtitle": "실시간 사용 지표를 위젯 단위로 커스터마이징",
+    "id": "waau3-survey",
+    "title": "3WAAU 문진 시스템 리뉴얼",
+    "subtitle": "감이 아닌 데이터로. 연 48만 건 분석 기반 재설계",
     "type": "work",
-    "period": "2022.06 - 2023.01",
-    "description": "B2B 고객이 자신의 사용 지표를 실시간으로 확인할 수 있는 대시보드를 처음부터 다시 만들었습니다. 위젯 단위 커스터마이징과 권한별 뷰를 지원합니다.",
-    "overview": "v1 대시보드는 페이지 단위로만 구성되어 있어 고객사마다 보고 싶은 지표가 달라도 동일한 화면을 봐야 했습니다. v2에서는 위젯 단위로 분해하고, 드래그 앤 드롭 레이아웃과 권한별 뷰를 지원해 고객사가 자기 회사에 맞는 대시보드를 직접 구성할 수 있도록 했습니다.",
+    "period": "2025.10 - 재직 중",
+    "description": "연 48만 건 규모의 문진 데이터를 직접 분석해, 감이 아닌 데이터로 전 화면·분기 흐름을 재설계한 맞춤형 추천(헤어케어) 문진 인하우스 전환 프로젝트입니다.",
+    "overview": "기존 문진은 외주 시스템에 종속되어 처방 로직 변경이나 마켓 추가 시 운영 리스크가 컸습니다. TypeScript 백엔드와 React 19 + Vite + Tailwind + shadcn 신규 프론트엔드를 처음부터 설계·구축하고, 문진 사용 데이터를 직접 분석해 모든 분기 흐름을 데이터 근거로 재설계했습니다.",
     "highlights": [
-      "TanStack Query 기반 실시간 데이터 폴링·캐싱 전략",
-      "Recharts 위젯 12종 + 드래그 앤 드롭 레이아웃 저장",
-      "Role 기반 위젯 노출 제어로 단일 화면에서 권한별 뷰 분기",
-      "p95 대시보드 로딩 4.8s → 1.6s로 단축"
+      "연 문진 483,100건 / 구매 106,588건을 분석해 회원 전환율 53.0% vs 비회원 7.2%(7.4배 격차) 인사이트 도출 → 비회원 축약 문진·회원 전환 동선 설계",
+      "비회원 문진→구매 이탈율 92.8%(연 약 30만 건 이탈) 병목 구간 규명 및 개선안 제시",
+      "재구매 주기 도달 미구매 회원 75.0%(45,693명)를 겨냥한 재구매 알림(CRM)을 수동→시스템(반자동)화",
+      "개선 매출 기여를 연 6.1~24.4억 규모로 정량 시뮬레이션하여 플랫폼운영팀 워크샵 발표",
+      "CAFE24 OpenAPI Rate Limit 사전 예방(X-Api-Call-Limit 90% throttling)으로 429 차단 및 GTM/GA 퍼널 지표 실시간 수집 체계 구축"
     ],
-    "tech": ["React", "TanStack Query", "Recharts", "NestJS", "Redis"],
-    "links": {
-      "demo": "https://dashboard.example.com"
-    }
+    "tech": ["TypeScript", "Node.js", "Express", "React 19", "Vite 7", "Tailwind CSS 4", "shadcn/ui", "AWS (S3·CloudFront)", "CAFE24 OpenAPI"],
+    "links": {}
   },
   {
-    "id": "work-3",
-    "title": "어드민 디자인 시스템",
-    "subtitle": "사내 6개 제품이 공유하는 한 세트의 어드민 UI",
+    "id": "kerol",
+    "title": "KEROL TO-BE 신규 아키텍처 구축",
+    "subtitle": "레거시 → 단계적 MSA 전환 + 공통 프레임워크 제공",
     "type": "work",
-    "period": "2021.09 - 2022.05",
-    "description": "사내 6개 제품에서 공유하는 어드민 디자인 시스템을 구축했습니다. 컴포넌트, 토큰, 가이드라인까지 한 패키지로 묶어 신규 화면 개발 속도를 두 배로 끌어올렸습니다.",
-    "overview": "사내 어드민 화면이 제품마다 따로 만들어지고 있어 같은 버튼이 8가지 색으로 존재하는 상황이었습니다. Figma 토큰부터 React 컴포넌트, Storybook 가이드까지 한 묶음으로 정비해 신규 화면 개발 속도와 일관성을 동시에 잡았습니다.",
+    "period": "2025.01 - 2025.08",
+    "description": "장기간 운영으로 모놀리스화된 레거시 물류 시스템(OMS·FMS·WMS)을 React + Spring 기반 신규 아키텍처로 전환했습니다. 운영 무중단을 유지하며 단계적 MSA 전략으로 리스크 없이 성공 오픈했고, 아키텍처 설계와 공통 프레임워크 개발을 주도했습니다.",
+    "overview": "처음부터 전체를 API Gateway 기반으로 일괄 전환하면 운영 리스크가 과도하게 커질 것으로 판단해, 도메인별 호출 구조를 우선 도입하고 서비스 간 의존성을 점진적으로 분리하는 전략을 채택했습니다. 향후 Gateway를 도입하더라도 대규모 수정 없이 통합할 수 있는 구조적 유연성을 확보했습니다.",
     "highlights": [
-      "Figma Tokens → CSS 변수 자동 변환 파이프라인 구축",
-      "Stitches 기반 헤드리스 컴포넌트 32종, 접근성 검수 완료",
-      "Storybook + 사용 가이드 문서화로 신규 합류자 적응 기간 단축",
-      "신규 화면 개발 속도 약 2배, 디자인 QA 리젝션 60% 감소"
+      "공통 프레임워크·보일러플레이트 개발 주도 — 서비스마다 제각각이던 개발 방식을 통일된 템플릿(공통 설정·레이어 구조·인증 연동 등)으로 표준화해, 팀원이 비즈니스 로직에만 집중하도록 개발 생산성·일관성 확보",
+      "전면 Gateway 일괄 전환 대신 도메인별 호출 구조를 우선 도입하는 단계적 MSA 전략을 직접 설계·주도",
+      "인증(공통 모듈) / 인가(서비스별 JAR) 분리로 SPOF 제거 및 서비스 독립성 확보",
+      "TanStack Query 연동 최적화 + Redis 캐싱으로 응답성·안정성 개선",
+      "기존 운영을 병행하는 제약 속에서 신규 아키텍처를 무중단으로 안정 오픈"
     ],
-    "tech": ["React", "Storybook", "Stitches", "Figma Tokens"],
+    "tech": ["React", "TypeScript", "Spring Boot", "JPA", "MyBatis", "Redis", "MariaDB"],
+    "links": {}
+  },
+  {
+    "id": "byniq-interface",
+    "title": "BYNIQ 수주·출하·적부 인터페이스",
+    "subtitle": "AWS CDK 기반 IaC 멀티마켓 인터페이스 신규 구축",
+    "type": "work",
+    "period": "2026.01 - 재직 중",
+    "description": "신규 브랜드 자사몰 주문을 SAP·생산시스템으로 연계하는 멀티마켓 인터페이스를, 수동 배포 대신 코드형 인프라(IaC)로 처음부터 구축했습니다. 한 단계라도 실패하면 생산 일정에 직접 손해가 나는 민감 경로입니다.",
+    "highlights": [
+      "AWS CDK 기반 IaC로 ECS Fargate 태스크를 코드화 — 배포 자동화 및 인프라 재현성 확보",
+      "쿠팡 부가세 누락(payment_amount null 수신) 이슈 해결, 멀티마켓(쿠팡·네이버페이·스마트스토어) 부가세 처리 표준화",
+      "배송비가 증발하던 결정적 분배 버그를 근본 수정(루프 스킵 조건 불일치) + 회귀 테스트로 재발 차단",
+      "OOM·예외 시 분산락 기반 중복 실행 방지, 실패 시 Teams 채널별 분리 알림(주문번호·원인 포함) 표준화"
+    ],
+    "tech": ["TypeScript", "Node.js", "AWS CDK 2", "ECS Fargate", "AWS Batch", "Java / Gradle", "MySQL2", "Teams Webhook"],
+    "links": {}
+  },
+  {
+    "id": "waau3-order-if",
+    "title": "3WAAU 주문 이관 인터페이스 안정화",
+    "subtitle": "생산시스템 이관 배치의 회복 탄력성·알림 체계 고도화",
+    "type": "work",
+    "period": "2025.12 - 재직 중",
+    "description": "자사몰 주문을 생산시스템(POSys)으로 이관하는 인터페이스는, 화장품 제조에서 실패 시 단순 주문 누락이 아니라 생산 일정 자체가 흔들리는 가장 민감한 경로입니다. 운영을 인계받은 뒤 회복 탄력성과 알림 체계를 개선했습니다.",
+    "highlights": [
+      "20건 이상 오류 시 배치 전체가 중단되던 구조를 개선 — 이상 데이터만 제외, 정상 건은 계속 이관되도록 전환해 수동 재처리 빈도 감소",
+      "제외 건 Teams 자동 발송 + 채널 분리로 운영팀 실시간 대응 확보",
+      "외부 호출 실패가 결제에 영향 주기 전 사내 인지 가능하도록 사전 알림 추가, 일반화장품 주문까지 확장"
+    ],
+    "tech": ["Java", "Spring Boot", "Gradle", "AWS Batch", "MySQL", "Teams Webhook"],
+    "links": {}
+  },
+  {
+    "id": "byniq-mes",
+    "title": "BYNIQ 온디맨드 생산관리 시스템(MES)",
+    "subtitle": "신규 브랜드 MES 신규 구축",
+    "type": "work",
+    "period": "2025.11 - 2026.04",
+    "description": "신규 브랜드 BYNIQ의 생산관리 시스템을, 3WAAU MES에서 검증된 공통 로직은 재활용하되 브랜드별로 달라지는 부분은 명확히 분리하는 코드 설계 전략으로 백엔드·프론트를 동시 구축했습니다. 개발 의존 없는 자율 운영 체계를 목표로 했습니다.",
+    "highlights": [
+      "동기화 기능 신규 개발 — 자사몰·문진·생산시스템 간 마스터 데이터 정합성 확보",
+      "인터페이스 재전송 관리 기능으로 운영팀이 개발자 없이 실패 건 직접 재시도 가능",
+      "식약처 알러젠 표기 기준 변경 대응(0.01% 미만 제외·정렬 등 25개 성분 순서 보장)",
+      "주문번호 기반 생산 상태 조회 외부 API 신규 개발"
+    ],
+    "tech": ["Java", "Spring Boot", "MyBatis", "MariaDB", "JavaScript", "jQuery", "JSP", "AWS"],
+    "links": {}
+  },
+  {
+    "id": "byniq-mall",
+    "title": "BYNIQ 자사몰 신규 구축",
+    "subtitle": "신규 D2C 자사몰 프론트 + 품목코드 매핑 설계",
+    "type": "work",
+    "period": "2025.10 - 2026.04",
+    "description": "신규 D2C 브랜드 자사몰 프론트를 처음부터 구축하면서, CAFE24 상품과 자체 품목코드가 다대다로 얽히는 도메인 특성을 반영한 매핑 체계를 새롭게 설계했습니다. 개발 변경 없이 운영만으로 대응 가능한 구조에 초점을 뒀습니다.",
+    "highlights": [
+      "자체 품목코드 ↔ CAFE24 상품 매핑을 JSON 구조로 설계 — 신규 제품 추가 시 코드 변경 없이 JSON 갱신만으로 대응",
+      "FTP 배포 스크립트(qa·staging·prod) 표준화, 환경별 설정 분리",
+      "타 팀 AI 챗봇과 quick 구매·문진 양방향 동선을 자사몰 측에서 풀스택 연결"
+    ],
+    "tech": ["HTML", "JavaScript (ES6)", "jQuery", "CAFE24 Front SDK", "REST API", "AWS", "FTP 배포 자동화"],
+    "links": {}
+  },
+  {
+    "id": "waau3-mes",
+    "title": "3WAAU 온디맨드 MES 운영·고도화",
+    "subtitle": "1:1 맞춤형 생산관리 + QR 트레이서빌리티",
+    "type": "work",
+    "period": "2025.08 - 재직 중",
+    "description": "'1명 = 1처방 = 1생산 LOT'이라는, 업계에서도 흔치 않은 1:1 맞춤형 온디맨드 MES입니다. 매 주문마다 BOM이 달라지고 라벨/리플렛이 1:1로 매핑되기 때문에 데이터 정합성과 추적성이 무엇보다 중요한 시스템을 안정 운영·고도화했습니다.",
+    "highlights": [
+      "라벨/리플렛 QR에 로트번호(lot_no) 인코딩 — 출하 후 클레임 시 즉시 역추적 가능한 트레이서빌리티 구축",
+      "인터페이스 재전송 GUI화 — 개발자 직접 DB 수정 의존을 운영팀 셀프 처리로 전환",
+      "일반/맞춤형/혼합 주문을 단일 시스템에서 일관 처리하도록 통합, 출고 엑셀·조회 속도 등 핫픽스 다수 처리"
+    ],
+    "tech": ["Java", "Spring Boot", "MyBatis", "MariaDB", "JavaScript", "jQuery", "JSP", "QR (ZXing)", "AWS"],
+    "links": {}
+  },
+  {
+    "id": "waau3-mall",
+    "title": "3WAAU 자사몰 프론트 운영·리뉴얼",
+    "subtitle": "단일 소스 정비로 유지보수 70% 단축",
+    "type": "work",
+    "period": "2025.08 - 재직 중",
+    "description": "오랜 기간 다수 외주를 거치며 커스터마이징이 누적된 CAFE24 기반 D2C 플랫폼으로, QA/PC/MOBILE 소스가 분리 운영되고 프로모션마다 하드코딩 페이지를 추가하는 비효율이 있었습니다. 구조를 전면 점검해 단일 소스로 정비하고 마케팅팀이 직접 프로모션을 등록·해제할 수 있는 구조로 전환했습니다.",
+    "highlights": [
+      "QA·PC·MOBILE로 이원화된 소스를 도메인 기반 분기 구조로 통합 — 유지보수 시간 약 70% 단축 및 오류율 감소",
+      "하드코딩 히든상품 프로모션을 CAFE24 상품 등록만으로 자동 반영되도록 개선(64개 파일 리팩토링)",
+      "시즌·인플루언서 프로모션 페이지 30건 이상 퍼블리싱, 약 8개월간 약 120건 배포 책임 수행"
+    ],
+    "tech": ["HTML", "JavaScript (ES6)", "jQuery", "CAFE24 Front SDK", "REST API", "Google Analytics"],
+    "links": {}
+  },
+  {
+    "id": "cost-chatbot",
+    "title": "비용·예산 관리 AI 챗봇",
+    "subtitle": "RAG 기반 사내 비용정책 자동 응답",
+    "type": "work",
+    "period": "2024.07 - 2024.09",
+    "description": "비용 관리 시스템 도입 이후 결재 라인이 조직 개편 등으로 자주 바뀌며 경영지원팀 문의량이 급증했습니다. 사내 비용 정책·결재 규정을 학습한 RAG 기반 챗봇으로 자동 응대하고, 특히 할루시네이션 억제에 초점을 뒀습니다.",
+    "highlights": [
+      "GPT-3.5 + K-BERT 기반 RAG로 사내 비용 정책·결재 규정 자동 응답, 반복 문의 응대 부담 감소",
+      "벡터 DB 자연어 검색으로 정확도를 높이고 할루시네이션 문제 해소"
+    ],
+    "tech": ["Python", "GPT-3.5", "RAG", "Vector DB", "Hugging Face", "K-BERT"],
+    "links": {}
+  },
+  {
+    "id": "cost-system",
+    "title": "비용·예산 관리 시스템",
+    "subtitle": "법인카드 자동연계 + 더존 ERP IF 결재",
+    "type": "work",
+    "period": "2024.03 - 2024.07",
+    "description": "기존에는 사용자가 카드 승인 내역을 직접 입력하고 계정별 결재 라인을 수동으로 찾아야 했습니다. 하나은행 API로 카드 승인 내역을 실시간 연계하고, 더존 ERP 사용자는 기존 프로세스를 유지한 채 자동 반영되도록 설계해 중복 업무를 제거했습니다.",
+    "highlights": [
+      "하나은행 REST API 연동으로 카드 승인 내역 실시간 반영, 사용자 수기 입력 제거",
+      "더존 ERP SOAP 연계로 ERP 사용자는 기존 프로세스 유지한 채 자동 반영, 중복 업무 제거",
+      "예산 초과 시 품의 결재 차단으로 불필요한 승인 요청 사전 차단"
+    ],
+    "tech": ["Java", "Spring", "MyBatis", "MariaDB", "JSP", "Tiles", "REST API", "SOAP (더존 ERP)"],
+    "links": {}
+  },
+  {
+    "id": "edi",
+    "title": "EDI 시스템 개선 (RESTful API 추가)",
+    "subtitle": "REST API 추가로 SK 관계사 신규 고객 확보",
+    "type": "work",
+    "period": "2024.01 - 2024.03",
+    "description": "기존 EDI 시스템이 SOAP 방식만 지원해, RESTful API를 요구하는 신규 고객사 연계에 어려움이 있었습니다. Spring Boot 기반 EDI에 REST API를 추가해 인터페이스를 다변화했습니다.",
+    "highlights": [
+      "REST API 추가로 인터페이스를 다변화, 행복나래·앱솔릭스 등 SK 관계사 신규 고객 확보",
+      "Spring Boot 기반으로 서비스 안정성·유지보수성 개선"
+    ],
+    "tech": ["Java", "Spring Boot", "REST API", "SOAP", "MyBatis", "MariaDB"],
+    "links": {}
+  },
+  {
+    "id": "esg-eco",
+    "title": "ESG ECO 플랫폼 구축",
+    "subtitle": "탄소배출량 자동 수집·분석 대시보드",
+    "type": "work",
+    "period": "2023.04 - 2023.06",
+    "description": "기존에는 탄소 배출량 산출이 별도로 이뤄지지 않아 고객사의 ESG 대응이 어려웠습니다. 글로벌 수출입 물류 운송 데이터를 분석해 고객사별 예상 탄소 배출량을 자동 계산·제공하는 기반 플랫폼을 구축했습니다.",
+    "highlights": [
+      "SOAP 연계로 탄소 배출 데이터 자동 수집·분석, 고객사 직접 조회 대시보드 제공",
+      "Jenkins 배포 자동화로 운영 효율 향상, 운송 모드 추천·절감 경로 분석으로 확장 가능한 기반 마련"
+    ],
+    "tech": ["Java", "Spring", "SOAP", "Jenkins", "MariaDB", "JSP"],
+    "links": {}
+  },
+  {
+    "id": "battery",
+    "title": "SKINNOVATION 배터리 용기관리 플랫폼",
+    "subtitle": "용기·소모품 실시간 관리 대시보드",
+    "type": "work",
+    "period": "2023.01 - 2023.03",
+    "description": "배터리 용기의 가시성 확보와 소모품 관리를 위해, 이미 운영 중인 플랫폼(KEROL 물류 데이터)과 무중단 연계해 중복 입력을 최소화하는 관리 시스템을 구축했습니다.",
+    "highlights": [
+      "용기·소모품 상태와 재고를 한 화면에서 파악해 재사용 가능 여부와 비용 효율까지 판단 가능하도록 설계",
+      "Chart.js 대시보드로 시각화, 불필요한 재고 구매 방지 및 관리 효율 향상"
+    ],
+    "tech": ["Java", "Spring", "MyBatis", "REST API", "Bootstrap", "Chart.js", "Alopex"],
+    "links": {}
+  },
+  {
+    "id": "jenkins",
+    "title": "Jenkins 기반 CI/CD (DevOps) 구축",
+    "subtitle": "AWS 자동화 배포 + k8s 무중단",
+    "type": "work",
+    "period": "2023.01 - 2023.02",
+    "description": "AWS IaaS 환경에서 EC2에 대한 반복적인 수동 배포로 오류와 시간 소모가 컸습니다. Jenkins 기반 CI/CD로 빌드·테스트·배포를 통합하고 k8s 무중단 배포를 구성했습니다.",
+    "highlights": [
+      "Jenkins로 빌드·테스트·배포를 통합, 수동 배포 오류·시간 감소로 반복 가능한 배포 환경 확립",
+      "k8s 기반 무중단 배포 구성 및 모니터링 연동으로 가용성 극대화"
+    ],
+    "tech": ["Jenkins", "AWS", "EC2", "Java", "Spring", "Kubernetes"],
+    "links": {}
+  },
+  {
+    "id": "portal",
+    "title": "PORTAL PLATFORM 구축",
+    "subtitle": "사내 물류 데이터 단일 포털 통합",
+    "type": "work",
+    "period": "2021.01 - 2021.05",
+    "description": "KEROL 물류 오퍼레이션을 비롯해 사내 여러 시스템에서 발생하는 데이터를 단일 웹 포털에서 조회·분석하도록 구축했습니다. 향후 다양한 프로젝트를 Add-On할 수 있는 기반 플랫폼입니다.",
+    "highlights": [
+      "공통 UI 컴포넌트(Tiles·Chart.js) 기반 설계로 신규 모듈 추가 시 손쉬운 확장성 확보(배터리 용기관리 등에서 재사용)",
+      "MyBatis DB 연동 최적화로 대량 물류·재고 데이터 처리 속도 향상"
+    ],
+    "tech": ["Java", "Spring", "MyBatis", "Tiles", "Alopex", "Chart.js", "JavaScript"],
+    "links": {}
+  },
+  {
+    "id": "oms",
+    "title": "OMS(주문 관리 시스템) 리팩토링",
+    "subtitle": "다중 주문 경로 단일 프로세스 통합",
+    "type": "work",
+    "period": "2020.01 - 2020.06",
+    "description": "Excel·IF·Form 등 서로 다른 주문 경로가 각기 다른 서비스를 호출해 불일치가 잦던 OMS를 단일 프로세스로 통합했습니다.",
+    "highlights": [
+      "Flow Chart로 각 경로를 정리하고 현업과 협업해 프로세스를 단일화, 데이터 누락·중복 등록 해소",
+      "쿼리 구조 정비·모듈화로 처리 속도·안정성·유지보수성 개선"
+    ],
+    "tech": ["Java", "Spring", "MyBatis", "Bootstrap", "JavaScript"],
+    "links": {}
+  },
+  {
+    "id": "balju",
+    "title": "프랜차이즈 수발주 시스템 (발주왕)",
+    "subtitle": "본사·가맹점 수발주 웹·모바일 통합",
+    "type": "work",
+    "period": "2018.10 - 2019.10",
+    "description": "본사·가맹점 간 물품 수발주 프로세스를 웹·모바일 단일 시스템으로 통합했습니다.",
+    "highlights": [
+      "주문·재고·배송 핵심 업무를 통합해 처리 속도·정확도 향상, 웹·모바일 공통 API로 확장성 확보",
+      "단계별 자동 알림으로 재고 부족·오류를 사전 방지, 주문 패턴 통계로 운영 효율 향상"
+    ],
+    "tech": ["Java 8", "Spring", "AngularJS", "MyBatis", "MariaDB"],
+    "links": {}
+  },
+  {
+    "id": "meat-crawl",
+    "title": "축산물 시세 크롤링 시스템",
+    "subtitle": "실시간 시세 자동 수집 크롤러",
+    "type": "work",
+    "period": "2018.11 - 2018.12",
+    "description": "변동성 큰 축산물 시세를 자동 수집·정제하는 크롤러를 구축했습니다.",
+    "highlights": [
+      "Cron 스케줄링 기반 실시간 크롤링으로 시세 데이터 자동 확보, 시장 대응 속도 강화",
+      "사이트 구조 변경·장애 대비 알림·재시도 로직으로 안정성 확보"
+    ],
+    "tech": ["Java 8", "Spring", "MyBatis"],
+    "links": {}
+  },
+  {
+    "id": "server-monitor",
+    "title": "Node.js 서버 모니터링·알림 시스템",
+    "subtitle": "서버 18대 실시간 모니터링·원격 재시작",
+    "type": "work",
+    "period": "2017.10 - 2018.02",
+    "description": "IDC 서버 18대 환경 세팅부터 중앙 모니터링·원격 재시작까지 단독 구축했습니다.",
+    "highlights": [
+      "서버 18대 CPU·메모리·프로세스 실시간 모니터링, 임계치 초과 시 알림 + 자동 재시도·원격 재부팅으로 다운타임 최소화",
+      "Socket.io 실시간 통신 및 pm2 멀티 프로세스·로그 중앙화로 장애 추적·스케일링 용이"
+    ],
+    "tech": ["Node.js", "CentOS", "Socket.io", "pm2", "MariaDB"],
+    "links": {}
+  },
+  {
+    "id": "kakao-alrim",
+    "title": "카카오톡 알림톡 연동",
+    "subtitle": "전자차트 이벤트 알림톡 자동 발송",
+    "type": "work",
+    "period": "2017.08 - 2017.10",
+    "description": "병원 전자차트의 예약·접수 변경을 카카오톡 알림톡으로 자동 발송하도록 연동했습니다.",
+    "highlights": [
+      "전자차트 이벤트 감지 후 알림톡 실시간 발송, 문자 대비 저렴한 채널로 환자 만족도·운영 효율 향상",
+      "발송 이력 관리·재전송 화면 구현, 타 채널 확장 가능하도록 모듈화"
+    ],
+    "tech": ["Node.js", "MariaDB", "jQuery", "HTTPS"],
+    "links": {}
+  },
+  {
+    "id": "settop",
+    "title": "전자차트 내 TVG 셋톱박스 연동",
+    "subtitle": "대기실 셋톱박스 실시간 표시",
+    "type": "work",
+    "period": "2017.02 - 2017.04",
+    "description": "전자차트 상태 변경에 따라 대기실 셋톱박스에 정보를 자동 표시하고 환자 안내를 자동화했습니다.",
+    "highlights": [
+      "예약·접수 상태 변경을 socket 통신으로 셋톱박스에 실시간 전송, 대기화면·공지·기상 정보 자동 표시",
+      "상태 변경 시 문자·알림톡 자동 발송 연동으로 환자 안내 자동화"
+    ],
+    "tech": ["Node.js", "MariaDB", "Ajax", "SocketJS", "jQuery"],
+    "links": {}
+  },
+  {
+    "id": "portfolio",
+    "title": "포트폴리오 사이트",
+    "subtitle": "JSON으로 콘텐츠를 갈아끼우는 정적 포트폴리오",
+    "type": "personal",
+    "period": "2026",
+    "description": "지금 보고 계신 이 사이트입니다. 콘텐츠와 디자인을 분리해, 자기소개·기술·경력·프로젝트를 JSON 한 묶음으로 관리하도록 설계했습니다.",
+    "highlights": [
+      "Next.js 15 + React 19 + TypeScript + Tailwind 기반 정적 사이트",
+      "OGL WebGL 파티클 배경과 framer-motion 섹션 애니메이션",
+      "OpenAI 기반 사이트 안내 챗봇, next-themes 다크/라이트 테마",
+      "모든 콘텐츠를 JSON으로 외부화해 코드 수정 없이 교체 가능"
+    ],
+    "tech": ["Next.js 15", "TypeScript", "Tailwind CSS", "framer-motion", "OGL", "next-themes"],
     "links": {}
   }
 ]

@@ -1,18 +1,22 @@
 [
   {
-    "category": "프론트엔드",
-    "items": ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js", "Zustand", "TanStack Query"]
+    "category": "백엔드",
+    "items": ["Java", "Spring Boot", "Node.js", "TypeScript", "Python", "JPA", "MyBatis", "Express"]
   },
   {
-    "category": "백엔드",
-    "items": ["Node.js", "NestJS", "Spring Boot", "Python", "FastAPI", "PostgreSQL", "MongoDB", "Redis"]
+    "category": "프론트엔드",
+    "items": ["React 19", "Next.js", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui", "jQuery"]
   },
   {
     "category": "인프라 / DevOps",
-    "items": ["Docker", "Kubernetes", "AWS", "GitHub Actions", "Terraform", "Datadog", "Sentry"]
+    "items": ["AWS EB", "ECS Fargate", "AWS CDK", "S3 · CloudFront", "RDS", "Docker", "Jenkins", "Kubernetes"]
+  },
+  {
+    "category": "데이터 / AI",
+    "items": ["생성형 AI (Gemini · Veo · Whisper · TTS)", "RAG", "FFmpeg / JavaCV", "MariaDB · MySQL", "Redis", "벡터 DB"]
   },
   {
     "category": "협업 / 도구",
-    "items": ["Git", "Jira", "Notion", "Figma", "Slack", "Storybook"]
+    "items": ["Git", "Microsoft Teams", "Figma", "Playwright", "Google Analytics"]
   }
 ]

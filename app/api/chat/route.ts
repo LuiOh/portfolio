@@ -1,4 +1,4 @@
-// OpenAI 챗봇 프록시 — 클라이언트 메시지를 받아 모델에 전달하고 응답을 반환
+// LLM 챗봇 프록시 — OpenAI 호환 API(기본값: NVIDIA NIM 무료 엔드포인트)로 메시지를 전달하고 응답 반환
 
 import { NextRequest, NextResponse } from "next/server";
 import {
@@ -35,7 +35,29 @@ function buildSystemPrompt(): string {
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.OPENAI_API_KEY;
+    const NVIDIA_BASE = "https://integrate.api.nvidia.com/v1";
+    const NVIDIA_MODEL = "meta/llama-3.3-70b-instruct";
+    const OPENAI_BASE = "https://api.openai.com/v1";
+    const OPENAI_MODEL = "gpt-4.1-nano";
+
+    const genericKey = process.env.LLM_API_KEY;
+    const nvidiaKey = process.env.NVIDIA_API_KEY;
+    const openaiKey = process.env.OPENAI_API_KEY;
+
+    let apiKey: string | undefined;
+    let baseUrl: string;
+    let model: string;
+
+    if (genericKey ?? nvidiaKey) {
+      apiKey = genericKey ?? nvidiaKey;
+      baseUrl = process.env.LLM_BASE_URL ?? NVIDIA_BASE;
+      model = process.env.LLM_MODEL ?? NVIDIA_MODEL;
+    } else {
+      apiKey = openaiKey;
+      baseUrl = process.env.LLM_BASE_URL ?? OPENAI_BASE;
+      model = process.env.LLM_MODEL ?? OPENAI_MODEL;
+    }
+
     if (!apiKey) {
       return NextResponse.json(
         { error: "API key not configured" },
@@ -50,16 +72,16 @@ export async function POST(req: NextRequest) {
     }
 
     const payload = {
-      model: "gpt-4.1-nano",
+      model,
       messages: [
         { role: "system", content: buildSystemPrompt() },
         ...messages.slice(-10),
       ],
       temperature: 0.4,
-      max_tokens: 400,
+      max_tokens: 512,
     };
 
-    const r = await fetch("https://api.openai.com/v1/chat/completions", {
+    const r = await fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
