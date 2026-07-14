@@ -73,6 +73,7 @@ export function Projects() {
           </p>
         ) : (
           <Stagger
+            key={filter}
             className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
             staggerChildren={0.06}
           >
