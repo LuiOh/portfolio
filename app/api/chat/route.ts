@@ -36,7 +36,7 @@ function buildSystemPrompt(): string {
 export async function POST(req: NextRequest) {
   try {
     const NVIDIA_BASE = "https://integrate.api.nvidia.com/v1";
-    const NVIDIA_MODEL = "meta/llama-3.3-70b-instruct";
+    const NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
     const OPENAI_BASE = "https://api.openai.com/v1";
     const OPENAI_MODEL = "gpt-4.1-nano";
 
