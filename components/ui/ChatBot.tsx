@@ -40,6 +40,8 @@ export default function ChatBot() {
 
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const abortRef = useRef<AbortController | null>(null);
+  const retryRef = useRef<ChatMessage[] | null>(null);
   const prefersReducedMotion = useReducedMotion();
 
   // 패널 열릴 때 입력창 자동 포커스
@@ -66,40 +68,87 @@ export default function ChatBot() {
     return () => window.removeEventListener("keydown", handler);
   }, [open]);
 
-  const sendMessage = async (text: string) => {
-    const trimmed = text.trim();
-    if (!trimmed || loading) return;
+  // 패널이 닫히거나 언마운트되면 진행 중인 요청 취소
+  useEffect(() => {
+    if (!open) abortRef.current?.abort();
+  }, [open]);
+  useEffect(() => () => abortRef.current?.abort(), []);
 
-    const userMsg: ChatMessage = { role: "user", content: trimmed };
-    const next = [...messages, userMsg];
-    setMessages(next);
-    setInput("");
+  const runCompletion = async (history: ChatMessage[]) => {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
     setLoading(true);
     setError(null);
+    setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
     try {
       const r = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next }),
+        body: JSON.stringify({ messages: history }),
+        signal: controller.signal,
       });
-      if (!r.ok) {
-        throw new Error(`HTTP ${r.status}`);
+      if (!r.ok || !r.body) throw new Error(`HTTP ${r.status}`);
+
+      const reader = r.body.getReader();
+      const decoder = new TextDecoder();
+      let acc = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        acc += decoder.decode(value, { stream: true });
+        setMessages((prev) => {
+          const copy = [...prev];
+          copy[copy.length - 1] = { role: "assistant", content: acc };
+          return copy;
+        });
       }
-      const data = (await r.json()) as { reply?: string };
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: data.reply ?? chatbot.fallback },
-      ]);
+
+      if (!acc.trim()) {
+        setMessages((prev) => {
+          const copy = [...prev];
+          copy[copy.length - 1] = {
+            role: "assistant",
+            content: chatbot.fallback,
+          };
+          return copy;
+        });
+      }
+      retryRef.current = null;
     } catch (e: unknown) {
-      const msg =
-        e instanceof Error
-          ? e.message
-          : "오류가 발생했어요. 잠시 후 다시 시도해 주세요.";
-      setError(msg);
+      setMessages((prev) => {
+        const copy = [...prev];
+        const last = copy[copy.length - 1];
+        if (last && last.role === "assistant" && last.content === "") copy.pop();
+        return copy;
+      });
+      if (e instanceof DOMException && e.name === "AbortError") return;
+      setError("답변을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.");
     } finally {
+      if (abortRef.current === controller) abortRef.current = null;
       setLoading(false);
     }
+  };
+
+  const sendMessage = (text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed || loading) return;
+
+    const history: ChatMessage[] = [
+      ...messages,
+      { role: "user", content: trimmed },
+    ];
+    setMessages(history);
+    setInput("");
+    retryRef.current = history;
+    void runCompletion(history);
+  };
+
+  const retryLast = () => {
+    if (loading || !retryRef.current) return;
+    void runCompletion(retryRef.current);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -240,36 +289,54 @@ export default function ChatBot() {
                   />
                 )}
 
-                {messages.map((m, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                  >
-                    {m.role === "user" ? (
-                      <UserBubble content={m.content} />
-                    ) : (
-                      <AssistantBubble content={m.content} />
-                    )}
-                  </motion.div>
-                ))}
+                {messages.map((m, i) => {
+                  if (m.role === "assistant" && m.content === "") return null;
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                    >
+                      {m.role === "user" ? (
+                        <UserBubble content={m.content} />
+                      ) : (
+                        <AssistantBubble content={m.content} />
+                      )}
+                    </motion.div>
+                  );
+                })}
 
-                {loading && <TypingIndicator />}
+                {loading &&
+                  (messages.length === 0 ||
+                    messages[messages.length - 1].role !== "assistant" ||
+                    messages[messages.length - 1].content === "") && (
+                    <TypingIndicator />
+                  )}
               </div>
 
               {/* 오류 표시 */}
               {error && (
                 <div className="mx-5 mb-2 flex items-center justify-between gap-2 rounded-lg border border-rose-400/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-200 backdrop-blur-md">
                   <span className="truncate">⚠ {error}</span>
-                  <button
-                    type="button"
-                    aria-label="오류 닫기"
-                    onClick={() => setError(null)}
-                    className="rounded p-1 hover:bg-rose-500/20"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
+                  <div className="flex shrink-0 items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={retryLast}
+                      disabled={loading || !retryRef.current}
+                      className="rounded px-2 py-0.5 font-medium text-rose-100 transition-colors hover:bg-rose-500/20 disabled:opacity-40"
+                    >
+                      다시 시도
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="오류 닫기"
+                      onClick={() => setError(null)}
+                      className="rounded p-1 hover:bg-rose-500/20"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
                 </div>
               )}
 
