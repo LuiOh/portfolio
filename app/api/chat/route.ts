@@ -42,7 +42,8 @@ function buildSystemPrompt(): string {
 export async function POST(req: NextRequest) {
   try {
     const NVIDIA_BASE = "https://integrate.api.nvidia.com/v1";
-    const NVIDIA_MODEL = "meta/llama-3.1-70b-instruct";
+    // NIM은 모델을 주기적으로 EOL 처리하므로 교체 시 /v1/models 로 생존 여부부터 확인할 것
+    const NVIDIA_MODEL = "meta/llama-3.2-11b-vision-instruct";
     const OPENAI_BASE = "https://api.openai.com/v1";
     const OPENAI_MODEL = "gpt-4.1-nano";
 
@@ -50,21 +51,37 @@ export async function POST(req: NextRequest) {
     const nvidiaKey = process.env.NVIDIA_API_KEY;
     const openaiKey = process.env.OPENAI_API_KEY;
 
-    let apiKey: string | undefined;
-    let baseUrl: string;
-    let model: string;
+    // 한 곳만 호출하면 그 공급자가 죽었을 때 챗봇 전체가 멈추므로 순서대로 재시도한다.
+    type Provider = { name: string; apiKey: string; baseUrl: string; model: string };
+    const providers: Provider[] = [];
 
-    if (genericKey ?? nvidiaKey) {
-      apiKey = genericKey ?? nvidiaKey;
-      baseUrl = process.env.LLM_BASE_URL ?? NVIDIA_BASE;
-      model = process.env.LLM_MODEL ?? NVIDIA_MODEL;
-    } else {
-      apiKey = openaiKey;
-      baseUrl = process.env.LLM_BASE_URL ?? OPENAI_BASE;
-      model = process.env.LLM_MODEL ?? OPENAI_MODEL;
+    if (genericKey) {
+      providers.push({
+        name: "custom",
+        apiKey: genericKey,
+        baseUrl: process.env.LLM_BASE_URL ?? NVIDIA_BASE,
+        model: process.env.LLM_MODEL ?? NVIDIA_MODEL,
+      });
+    }
+    if (nvidiaKey) {
+      providers.push({
+        name: "nvidia",
+        apiKey: nvidiaKey,
+        baseUrl: NVIDIA_BASE,
+        model: process.env.NVIDIA_MODEL ?? NVIDIA_MODEL,
+      });
+    }
+    if (openaiKey) {
+      providers.push({
+        name: "openai",
+        apiKey: openaiKey,
+        baseUrl: OPENAI_BASE,
+        model: process.env.OPENAI_MODEL ?? OPENAI_MODEL,
+      });
     }
 
-    if (!apiKey) {
+    if (providers.length === 0) {
+      console.error("[chat] no provider configured — check env vars on the deploy target");
       return NextResponse.json(
         { error: "API key not configured" },
         { status: 500 }
@@ -97,31 +114,56 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Payload too large" }, { status: 413 });
     }
 
-    const payload = {
+    const systemPrompt = buildSystemPrompt();
+    const buildPayload = (model: string) => ({
       model,
       messages: [
-        { role: "system", content: buildSystemPrompt() },
+        { role: "system", content: systemPrompt },
         ...messages,
       ],
       temperature: 0.4,
       max_tokens: 700,
       stream: true,
-    };
-
-    const upstream = await fetch(`${baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(payload),
-      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
     });
 
-    if (!upstream.ok || !upstream.body) {
-      const errText = await upstream.text().catch(() => "");
-      // 업스트림 원문은 서버 로그에만 남기고 클라이언트에는 노출하지 않음
-      console.error("[chat] upstream error", upstream.status, errText);
+    let upstream: Response | null = null;
+    const failures: string[] = [];
+
+    for (const provider of providers) {
+      try {
+        const res = await fetch(`${provider.baseUrl}/chat/completions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${provider.apiKey}`,
+          },
+          body: JSON.stringify(buildPayload(provider.model)),
+          signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+        });
+
+        if (res.ok && res.body) {
+          upstream = res;
+          break;
+        }
+
+        // 업스트림 원문은 서버 로그에만 남기고 클라이언트에는 노출하지 않음
+        const errText = await res.text().catch(() => "");
+        failures.push(`${provider.name}(${provider.model}):${res.status}`);
+        console.error(
+          "[chat] upstream failed",
+          provider.name,
+          provider.model,
+          res.status,
+          errText.slice(0, 300)
+        );
+      } catch (err) {
+        failures.push(`${provider.name}:exception`);
+        console.error("[chat] upstream exception", provider.name, err);
+      }
+    }
+
+    if (!upstream?.body) {
+      console.error("[chat] all providers failed —", failures.join(" | "));
       return NextResponse.json({ error: "Upstream error" }, { status: 502 });
     }
 
