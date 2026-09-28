@@ -27,13 +27,37 @@ const LIGHT_STAR_COLORS = [
   "#8b5cf6",
 ];
 
+// 파티클은 매 프레임 전부 갱신되므로 개수가 곧 GPU 부하다.
+function resolveParticleCount(width: number): number {
+  if (width < 768) return 180;
+  if (width < 1280) return 320;
+  return 480;
+}
+
 export default function ParticlesBackground() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [particleCount, setParticleCount] = useState(320);
 
   // SSR mismatch 방지 — mounted 가드
   useEffect(() => {
     setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const apply = () => setParticleCount(resolveParticleCount(window.innerWidth));
+    apply();
+
+    let timer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(apply, 200);
+    };
+    window.addEventListener("resize", onResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   const isDark = mounted && resolvedTheme === "dark";
