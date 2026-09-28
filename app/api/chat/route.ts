@@ -21,6 +21,14 @@ const MAX_CONTENT_CHARS = 2000;
 const MAX_TOTAL_CHARS = 8000;
 const UPSTREAM_TIMEOUT_MS = 60000;
 
+// 상세 페이지 본문(content·overview)은 챗봇 답변에 쓰이지 않으면서 토큰만 차지한다.
+function toChatContext(project: (typeof projects)[number]): Record<string, unknown> {
+  const clone: Record<string, unknown> = { ...project };
+  delete clone.content;
+  delete clone.overview;
+  return clone;
+}
+
 function buildSystemPrompt(): string {
   const ctx = {
     profile,
@@ -28,16 +36,18 @@ function buildSystemPrompt(): string {
     skills,
     certifications,
     experience,
-    projects,
+    projects: projects.map(toChatContext),
   };
   return [
     chatbot.persona,
     "\n\n[규칙]",
     ...chatbot.rules.map((r) => `- ${r}`),
     "\n\n[사이트 컨텍스트 — JSON]",
-    JSON.stringify(ctx, null, 2),
+    JSON.stringify(ctx),
   ].join("\n");
 }
+
+const SYSTEM_PROMPT = buildSystemPrompt();
 
 export async function POST(req: NextRequest) {
   try {
@@ -114,15 +124,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Payload too large" }, { status: 413 });
     }
 
-    const systemPrompt = buildSystemPrompt();
     const buildPayload = (model: string) => ({
       model,
       messages: [
-        { role: "system", content: systemPrompt },
+        { role: "system", content: SYSTEM_PROMPT },
         ...messages,
       ],
       temperature: 0.4,
-      max_tokens: 700,
+      max_tokens: 450,
       stream: true,
     });
 
