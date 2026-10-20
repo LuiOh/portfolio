@@ -353,7 +353,7 @@ export default function ChatBot() {
                     onKeyDown={handleKeyDown}
                     rows={1}
                     placeholder="메시지를 입력하세요…"
-                    className="max-h-32 flex-1 resize-none rounded-xl border border-violet-500/30 bg-white/5 px-3 py-2 text-sm text-zinc-100 placeholder:text-violet-300/50 backdrop-blur-md transition-colors focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/30"
+                    className="max-h-32 flex-1 resize-none rounded-xl border border-violet-500/30 bg-white/5 px-3 py-2 text-base text-zinc-100 placeholder:text-violet-300/50 sm:text-sm backdrop-blur-md transition-colors focus:border-violet-400 focus:outline-none focus:ring-2 focus:ring-violet-500/30"
                   />
                   <motion.button
                     type="button"
